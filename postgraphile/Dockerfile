@@ -1,4 +1,4 @@
-mkdir uiFROM node:14.13.1-alpine3.12
+FROM node:14.13.1-alpine3.12
 RUN npm install -g postgraphile@4.7.0
 COPY . .
 RUN cd pg-relation-tag-plugin && npm i -g && cd ..
