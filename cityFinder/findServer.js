@@ -21,5 +21,9 @@ function getCityCoord(name) {
 
 http.createServer(function(request, response){
     const query = url.parse(request.url,true).query;
+
+    response.setHeader('Access-Control-Allow-Origin', '*');
+    response.setHeader('Access-Control-Allow-Headers', 'origin, content-type, accept');
+
     response.end(JSON.stringify(getCityCoord(query.name)));
 }).listen(3000);
