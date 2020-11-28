@@ -20,10 +20,15 @@ function getCityCoord(name) {
 }
 
 http.createServer(function(request, response){
-    const query = url.parse(request.url,true).query;
+    try {
 
-    response.setHeader('Access-Control-Allow-Origin', '*');
-    response.setHeader('Access-Control-Allow-Headers', 'origin, content-type, accept');
+        const query = url.parse(request.url, true).query;
 
-    response.end(JSON.stringify(getCityCoord(query.name)));
+        response.setHeader('Access-Control-Allow-Origin', '*');
+        response.setHeader('Access-Control-Allow-Headers', 'origin, content-type, accept');
+
+        response.end(JSON.stringify(getCityCoord(query.name)));
+    } catch (e) {
+        console.error(e);
+    }
 }).listen(3000);
