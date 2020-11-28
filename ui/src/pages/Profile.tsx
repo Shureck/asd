@@ -48,7 +48,7 @@ const format = (values: any) => {
 const onFinish = (values: any) => {
   console.log('Success:', values);
   mutate(`mutation {
-    createDatum(input: {datum: ${format(values)}) {
+    createDatum(input: {datum: ${format(values)}}) {
       datum {
         id
       }
