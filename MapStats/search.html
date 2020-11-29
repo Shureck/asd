@@ -1,0 +1,102 @@
+<!DOCTYPE html>
+<html>
+<head>
+    <title>Поиск организаций и геопоиск</title>
+    <meta http-equiv="Content-Type" content="text/html; charset=utf-8"/>
+    <!--
+        Укажите свой API-ключ. Тестовый ключ НЕ БУДЕТ работать на других сайтах.
+        Получить ключ можно в Кабинете разработчика: https://developer.tech.yandex.ru/keys/
+    -->
+    <script src="https://api-maps.yandex.ru/2.1/?lang=ru_RU&amp;apikey=e8c819ab-ae9e-48fc-9b15-714cf0cef523" type="text/javascript"></script>
+    <script>
+        function init() {
+
+            var a1,a2,a3,a4;
+
+            var arr = ['Каршеринг','Электрозаправки','МФЦ','Раздельный сбор мусора'];
+
+            const searchControl = new ymaps.control.SearchControl({
+                options: {
+                    provider: 'yandex#search'
+                }
+            });
+
+            searchControl.search('Самара').then(function () {
+                const cityResult = searchControl.getResultsArray();
+                if (cityResult.length) {
+                    // Выводит свойство name первого геообъекта из результатов запроса.
+                    const myMap = new ymaps.Map('map', {
+                        center: [cityResult[0].geometry._coordinates[0], cityResult[0].geometry._coordinates[1]],
+                        zoom: 13,
+                        controls: []
+                    });
+
+                    // Создадим экземпляр элемента управления «поиск по карте»
+                    // с установленной опцией провайдера данных для поиска по организациям.
+
+                    myMap.controls.add(searchControl);
+
+                    // Программно выполним поиск определённых кафе в текущей
+                    // прямоугольной области карты.
+                    searchControl.search(arr[0]).then(function () {
+                        geoObjectsArray = searchControl.getResultsArray();
+                        if (geoObjectsArray.length) {
+							alert(arr[0] + " " +geoObjectsArray.length);
+							a1 = geoObjectsArray.length;
+                            console.log(geoObjectsArray[0]);
+                            searchControl.search(arr[1]).then(function () {
+                                geoObjectsArray = searchControl.getResultsArray();
+                                if (geoObjectsArray.length) {
+                                    alert(arr[1] + " " +geoObjectsArray.length);
+                                    a2 = geoObjectsArray.length;
+                                    console.log(geoObjectsArray[0]);
+                                    searchControl.search(arr[2]).then(function () {
+                                        geoObjectsArray = searchControl.getResultsArray();
+                                        if (geoObjectsArray.length) {
+                                            alert(arr[2] + " " +geoObjectsArray.length);
+                                            a3 = geoObjectsArray.length;
+                                            console.log(geoObjectsArray[0]);
+                                            searchControl.search(arr[3]).then(function () {
+                                                geoObjectsArray = searchControl.getResultsArray();
+                                                if (geoObjectsArray.length) {
+                                                    alert(arr[3] + " " +geoObjectsArray.length);
+                                                    a4 = geoObjectsArray.length;
+                                                    console.log(geoObjectsArray[0]);
+                                                }
+                                            });
+                                        }
+                                    });
+                                }
+                            });
+                        }
+                    });
+					
+					var http = new XMLHttpRequest();
+					var url = 'http://192.168.31.187:5000/graphql';
+					var params = '{"query":"mutation {createDatum(input: {datum: {c1: 1,c2: 1}}) {datum {id}}}","variables":{}}';
+					http.open('POST', url, true);
+
+					//Send the proper header information along with the request
+					http.setRequestHeader("Content-Type", "application/json;charset=UTF-8");
+					http.send(params);
+					
+                }
+
+            });
+        }
+
+        ymaps.ready(init);
+    </script>
+    <style>
+        html, body, #map {
+            width: 100%;
+            height: 100%;
+            padding: 0;
+            margin: 0;
+        }
+    </style>
+</head>
+<body>
+<div id="map"></div>
+</body>
+</html>

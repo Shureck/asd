@@ -1,0 +1,9 @@
+<resources>
+    <string name="app_name">УМНЫЙ ГОРОД</string>
+    <string name="text_splashscreen">Уделите пару минут, чтобы сделать Ваш город удобнее и умнее!</string>
+    <string name="button_splashscreen">Пройти опрос</string>
+    <string name="test_question_text">Тестовый вопрос</string>
+    <string name="yes">Да</string>
+    <string name="no">Нет</string>
+    <string name="third_option">Нет в городе/Не знаю</string>
+</resources>
