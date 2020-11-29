@@ -16,7 +16,8 @@ function fix(coord) {
 
 function getCityCoord(name) {
     const coordinates = data.find(it => it.name === name).geo.coordinates;
-    return fix(coordinates);
+    return coordinates;
+    // return fix(coordinates);
 }
 
 http.createServer(function(request, response){
