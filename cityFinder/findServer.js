@@ -28,7 +28,7 @@ http.createServer(function(request, response){
         response.setHeader('Access-Control-Allow-Origin', '*');
         response.setHeader('Access-Control-Allow-Headers', 'origin, content-type, accept');
 
-        response.end(JSON.stringify(getCityCoord(query.name)));
+        response.end(JSON.stringify({num_of_cams: data.find(it => it.name === name).num_of_cams, coordinates: getCityCoord(query.name)}));
     } catch (e) {
         console.error(e);
     }
