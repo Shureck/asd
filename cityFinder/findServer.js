@@ -1,9 +1,10 @@
 const http = require("http");
 const url = require('url');
-
+const _data = require('./data.json');
 http.createServer(function(request, response){
     try {
-        const data = require('./data.json');
+        // Very reliable array copy
+        const data = JSON.parse(JSON.stringify(_data));
 
         function fix(coord) {
             if(Array.isArray(coord[0])) {
